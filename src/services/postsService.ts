@@ -12,15 +12,16 @@ export const postService = {
   },
 
   async editPost(id: string, data: any) {
-    const post = await findById(id);
+    const numId = parseInt(id);
+    const post = await findById(numId);
     if (!post) {
       throw new Error("Post not found");
     }
-    return await update(id, data);
+    return await update(numId, data);
   },
 
   async deletePost(id: string) {
-    const post = await remove(id);
+    const post = await remove(parseInt(id));
     if (!post) {
       throw new Error("Post not found");
     }
@@ -28,7 +29,7 @@ export const postService = {
   },
 
   async getPostById(id: string) {
-    const post = await findById(id);
+    const post = await findById(parseInt(id));
     if (!post) {
       throw new Error("Post not found");
     }

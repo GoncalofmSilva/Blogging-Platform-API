@@ -1,6 +1,9 @@
 import { readJson, writeJson } from "../utils/json.js";
+import { fileURLToPath } from "url";
+import path from "path";
 
-const PATH = "../data/blogPosts.json";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PATH = path.join(__dirname, "../data/blogPosts.json");
 
 export async function findAll() {
   return await readJson(PATH);

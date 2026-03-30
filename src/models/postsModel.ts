@@ -5,5 +5,5 @@ export interface Post {
     category: string,
     tags: string[],
     createdAt: string,
-    editedAt: string
+    updatedAt: string
 }
