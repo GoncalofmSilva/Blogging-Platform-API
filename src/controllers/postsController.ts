@@ -29,7 +29,7 @@ export async function deletePost(req: Request, res: Response) {
     const { id } = req.params;
 
     const deletedPost = await postService.deletePost(id)
-    res.status(204).json(deletedPost)
+    res.status(204)
   } catch (error) {}
 }
 

@@ -6,9 +6,9 @@ export async function findAll() {
   return await readJson(PATH);
 }
 
-export async function findById(id: string) {
+export async function findById(id: number) {
   const posts = await readJson(PATH);
-  return posts.find((p: { id: string }) => p.id === id);
+  return posts.find((p: { id: number }) => p.id === id);
 }
 
 export async function create(data: any) {
@@ -28,10 +28,10 @@ export async function create(data: any) {
   return newPost;
 }
 
-export async function update(id: string, data: any) {
+export async function update(id: number, data: any) {
   const posts = await readJson(PATH);
 
-  const index = posts.findIndex((p: { id: string }) => p.id === id);
+  const index = posts.findIndex((p: { id: number }) => p.id === id);
   if (index === -1) return null;
 
   const updatedPost = {
@@ -47,13 +47,13 @@ export async function update(id: string, data: any) {
   return updatedPost;
 }
 
-export async function remove(id: string) {
+export async function remove(id: number) {
   const posts = await readJson(PATH);
 
-  const exists = posts.some((p: { id: string }) => p.id === id);
+  const exists = posts.some((p: { id: number }) => p.id === id);
   if (!exists) return null;
 
-  const filtered = posts.filter((p: { id: string }) => p.id !== id);
+  const filtered = posts.filter((p: { id: number }) => p.id !== id);
 
   await writeJson(PATH, filtered);
 
