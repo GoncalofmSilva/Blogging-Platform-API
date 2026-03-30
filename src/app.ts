@@ -1,4 +1,5 @@
 import express from "express";
+import router from "./routes/postsRoute.js"
 
 const app = express()
 
@@ -6,5 +7,6 @@ const app = express()
 app.use(express.json())
 
 // Routes
+app.use('/posts', router)
 
 export default app
