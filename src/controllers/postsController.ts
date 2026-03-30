@@ -1,3 +1,5 @@
+import type { Request, Response } from "express"
+
 // chamar services
 
 export async function createPost(req: Request, res: Response) {
