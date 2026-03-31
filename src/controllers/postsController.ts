@@ -10,7 +10,7 @@ export async function createPost(req: Request, res: Response) {
     });
     res.status(201).json(newPost);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(400).json({ error: "Bad Request" });
   }
 }
 
@@ -27,7 +27,7 @@ export async function editPost(req: Request, res: Response) {
     if (error instanceof Error && error.message === "Post not found") {
       res.status(404).json({ error: error.message });
     } else {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(400).json({ error: "Bad Request" });
     }
   }
 }
@@ -42,7 +42,7 @@ export async function deletePost(req: Request, res: Response) {
     if (error instanceof Error && error.message === "Post not found") {
       res.status(404).json({ error: error.message });
     } else {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(400).json({ error: "Bad Request" });
     }
   }
 }
@@ -57,7 +57,7 @@ export async function searchForAPost(req: Request, res: Response) {
     if (error instanceof Error && error.message === "Post not found") {
       res.status(404).json({ error: error.message });
     } else {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(400).json({ error: "Bad Request" });
     }
   }
 }
