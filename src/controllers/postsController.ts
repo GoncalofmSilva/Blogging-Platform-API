@@ -64,8 +64,47 @@ export async function searchForAPost(req: Request, res: Response) {
 
 export async function searchAllPosts(req: Request, res: Response) {
   try {
-    const posts = await postService.getAllPosts();
-    res.status(200).json(posts);
+    const { id, title, category, tags } = req.query;
+    let posts = await postService.getAllPosts();
+
+    if (id) {
+      const post = posts.find((p: { id: number }) => p.id === Number(id));
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      return res.status(200).json(post);
+    }
+
+    if (title) {
+      posts = posts.filter((post: { title: string }) =>
+        post.title.toLowerCase().includes(String(title).toLowerCase()),
+      );
+    }
+
+    if (category) {
+      posts = posts.filter(
+        (post: { category: string }) =>
+          post.category.toLowerCase() === String(category).toLowerCase(),
+      );
+    }
+
+    if (tags) {
+      const tagList = String(tags)
+        .split(",")
+        .map((tag) => tag.toLowerCase().trim());
+
+      posts = posts.filter((post: { tags: any[] }) => {
+        if (!Array.isArray(post.tags)) return false;
+
+        const normalized = post.tags.map((t: string) => t.toLowerCase());
+        return tagList.every((tag) => normalized.includes(tag));
+      });
+    }
+
+    return res.status(200).json({
+      total: posts.length,
+      results: posts,
+    });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
